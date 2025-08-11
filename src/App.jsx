@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, Github, Linkedin, FileDown, Wrench, BrainCircuit, Workflow, Building2, Cpu, Zap, BadgeCheck, Sparkles, Globe } from "lucide-react";
+import {
+  ArrowRight, Mail, Github, Linkedin, FileDown, Wrench, BrainCircuit,
+  Workflow, Building2, Cpu, Zap, BadgeCheck, Sparkles, Globe
+} from "lucide-react";
 
 const fadeIn = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
@@ -52,6 +55,8 @@ const skills = [
 
 const badges = ["AI", "Automation", "Make.com", "Airtable", "Streamlit", "Python", "Bluebeam", "PlanSwift", "Excel", "Estimating"];
 
+const isExternal = (url) => url && url !== "#" && !url.startsWith("#");
+
 export default function App() {
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-50 selection:bg-white/80 selection:text-neutral-900">
@@ -92,10 +97,21 @@ export default function App() {
               solutions that reduce manual work and raise quality.
             </motion.p>
             <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-3">
-              <a href="#work"><Button className="rounded-2xl h-10 px-5">View Work</Button></a>
-              <a href="#contact"><Button variant="secondary" className="rounded-2xl h-10 px-5">Hire Me</Button></a>
+              {/* View Work → scroll to Work section */}
+              <a href="#work">
+                <Button className="rounded-2xl h-10 px-5">View Work</Button>
+              </a>
+
+              {/* Hire Me → open email */}
+              <a href="mailto:jephsonco.automations@gmail.com?subject=Project%20Inquiry%20from%20Portfolio">
+                <Button variant="secondary" className="rounded-2xl h-10 px-5">Hire Me</Button>
+              </a>
+
+              {/* Resume → open PDF in new tab */}
               <a href="/Jephson_Co_Resume.pdf" target="_blank" rel="noreferrer">
-                <Button variant="ghost" className="rounded-2xl h-10 px-3"><FileDown className="w-4 h-4 mr-2"/>Resume</Button>
+                <Button variant="ghost" className="rounded-2xl h-10 px-3">
+                  <FileDown className="w-4 h-4 mr-2" />Resume
+                </Button>
               </a>
             </motion.div>
             <motion.div variants={fadeIn} className="flex flex-wrap gap-2 pt-3">
@@ -151,9 +167,15 @@ export default function App() {
                       ))}
                     </div>
                     <div className="mt-5">
-                      {p.link && <a href={p.link} className="inline-flex items-center text-sm text-white/90 hover:opacity-80">
-                        View details <ArrowRight className="w-4 h-4 ml-1"/>
-                      </a>}
+                      {p.link && (
+                        <a
+                          href={p.link}
+                          className="inline-flex items-center text-sm text-white/90 hover:opacity-80"
+                          {...(isExternal(p.link) ? { target: "_blank", rel: "noreferrer" } : {})}
+                        >
+                          View details <ArrowRight className="w-4 h-4 ml-1" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </Card>
@@ -243,7 +265,12 @@ export default function App() {
               <h3 className="text-xl md:text-2xl font-semibold tracking-tight">Let’s build something calm, fast, and dependable.</h3>
               <p className="text-neutral-300 mt-2">Send a brief, or just a problem statement. I’ll propose a path and timeline.</p>
             </div>
-            <a href="#contact"><Button className="rounded-2xl h-10 px-5">Start a Project <ArrowRight className="w-4 h-4 ml-2"/></Button></a>
+            {/* Make CTA email too */}
+            <a href="mailto:jephsonco.automations@gmail.com?subject=Project%20Inquiry%20from%20Portfolio">
+              <Button className="rounded-2xl h-10 px-5">
+                Start a Project <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </a>
           </div>
         </Card>
       </section>
@@ -251,16 +278,18 @@ export default function App() {
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-6xl px-4 py-20">
         <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-6">Contact</h2>
-        <p className="text-neutral-300 mb-8 max-w-2xl">Email works best. Share your current stack and the outcome you want—automation targets, response times, or a demo you’d like to see.</p>
+        <p className="text-neutral-300 mb-8 max-w-2xl">
+          Email works best. Share your current stack and the outcome you want—automation targets, response times, or a demo you’d like to see.
+        </p>
         <div className="flex flex-wrap gap-3">
           <a href="mailto:jephsonco.automations@gmail.com">
-            <Button className="rounded-2xl h-10 px-5"><Mail className="w-4 h-4 mr-2"/>jephsonco.automations@gmail.com</Button>
+            <Button className="rounded-2xl h-10 px-5"><Mail className="w-4 h-4 mr-2" />jephsonco.automations@gmail.com</Button>
           </a>
           <a href="https://linkedin.com/in/jephsonco" target="_blank" rel="noreferrer">
-            <Button variant="secondary" className="rounded-2xl h-10 px-5"><Linkedin className="w-4 h-4 mr-2"/>LinkedIn</Button>
+            <Button variant="secondary" className="rounded-2xl h-10 px-5"><Linkedin className="w-4 h-4 mr-2" />LinkedIn</Button>
           </a>
           <a href="https://github.com/jephsonco" target="_blank" rel="noreferrer">
-            <Button variant="ghost" className="rounded-2xl h-10 px-5"><Github className="w-4 h-4 mr-2"/>GitHub</Button>
+            <Button variant="ghost" className="rounded-2xl h-10 px-5"><Github className="w-4 h-4 mr-2" />GitHub</Button>
           </a>
         </div>
       </section>
